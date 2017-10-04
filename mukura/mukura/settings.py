@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@tik@i$8=41=a@_l$x1(6&0^x2@0l33u20hh2)eb%%*%6c*svj'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'algoliasearch_django',
+    'pathbreakers.apps.PathbreakersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+ALGOLIA = {
+    'APPLICATION_ID': '',
+    'API_KEY': ''
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,12 +82,17 @@ WSGI_APPLICATION = 'mukura.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+ 'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'srihariblog',
+        'USER': 'root',
+        'PASSWORD': 'welcome',
+        'DEFAULT-CHARACTER-SET': 'utf8',
+        'PORT': '3306',
+        'HOST': '127.0.0.1'
     }
-}
 
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -119,3 +131,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings_local.py')
+
+if os.path.exists(path):
+  import settings_local
+  DATABASES = settings_local.DATABASES
+  SECRET_KEY = settings_local.SECRET_KEY
+  ALGOLIA = settings_local.ALGOLIA
