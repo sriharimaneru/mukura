@@ -62,7 +62,9 @@ ROOT_URLCONF = 'mukura.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+                  BASE_DIR+'/pathbreakers/templates'
+                ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,6 +134,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+STATIC_DIR = [
+  os.path.join(BASE_DIR, "static")
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings_local.py')
 

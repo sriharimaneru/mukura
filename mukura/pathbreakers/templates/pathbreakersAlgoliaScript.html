@@ -1,0 +1,36 @@
+<script>
+const options = {
+    appId: 'XCEJITOWGH',
+    apiKey: '9e70b4a5832cdb910a7fb7b048f4c374',
+        indexName: 'pathbreakersIndex'
+}
+
+//const instantsearch = require('instantsearch.js');
+  const search = instantsearch(options);
+
+
+  
+ search.addWidget(
+    instantsearch.widgets.searchBox({
+      container: '#search-box',
+      placeholder: 'Search for products'
+    })
+
+ );
+
+ search.addWidget(
+    instantsearch.widgets.hits({
+      container: '#hits',
+      templates: {
+        empty: 'No results',
+        //item: '<div class ="floatImg"><img src=media/{{image}}></img></div>'
+        item: '<div class = "floatImg"><img src = media/{% templatetag openvariable %}image {% templatetag closevariable %} ></img> </div>'
+      }
+    })
+  );
+
+
+  search.start();
+
+</script>
+
